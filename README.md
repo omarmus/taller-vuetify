@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+> Para ver los pasos que se realizaron para crear el proyecto desde cero visitar https://github.com/omarmus/taller-vuetify/blob/master/INSTALL.md también encontrará recursos de cursos y demás.
+
 ## Build Setup
 
 ``` bash
