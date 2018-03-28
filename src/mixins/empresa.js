@@ -1,13 +1,9 @@
-import axios from 'axios'
-
-const url = 'http://localhost:4000/api-rest/'
-
 export default {
   methods: {
-    listaEmpresas (prop = '') {
-      axios.get(`${url}empresas`)
+    listaEmpresas (prop = 'empresas') {
+      this.$http.get(`empresas`)
         .then(respuesta => {
-          this[prop] = respuesta.data
+          this[prop] = respuesta
           console.log('empresas', this[prop])
         })
     }

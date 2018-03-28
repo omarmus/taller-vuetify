@@ -2,27 +2,14 @@
   <v-app>
     <v-navigation-drawer
       persistent
-      :mini-variant="miniVariant"
       :clipped="clipped"
       v-model="drawer"
       enable-resize-watcher
       fixed
+      dark
       app
     >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+      <app-menu></app-menu>
     </v-navigation-drawer>
     <v-toolbar
       app
@@ -42,20 +29,22 @@
 </template>
 
 <script>
+import AppMenu from './components/AppMenu'
+
 export default {
+  components: {
+    AppMenu
+  },
   data () {
     return {
       clipped: false,
       drawer: true,
-      fixed: false,
+      fixed: true,
       items: [{
         icon: 'bubble_chart',
         title: 'Inspire'
       }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'Proyecto Vuetify'
     }
   },
   name: 'App'
@@ -63,6 +52,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import './assets/scss/index';
+
 .app {
   padding: 30px;
 }

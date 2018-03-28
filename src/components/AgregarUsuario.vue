@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2>Agregar usuario</h2>
+    <h2>{{ id ? 'Editar' : 'Agregar' }} usuario</h2>
     <v-form
       @submit.prevent="enviar"
       ref="form" 
@@ -30,28 +30,40 @@
         :rules="required"
         required>
       </v-select>
-      <v-btn>Cancelar</v-btn>
+      <v-btn @click="cancelar">Cancelar</v-btn>
       <v-btn
         color="primary"
         type="submit">
-        <v-icon>check_circle</v-icon>Enviar</v-btn>
+        <v-icon>check_circle</v-icon>Guardar</v-btn>
     </v-form>
   </section>
 </template>
 
 <script>
 import Empresa from '@/mixins/empresa'
-import axios from 'axios'
-
-const url = 'http://localhost:4000/api-rest/'
+import EventBus from '@/lib/event-bus'
 
 export default {
   mixins: [ Empresa ],
+  props: {
+    item: {
+      type: Object,
+      default: () => {}
+    }
+  },
   mounted () {
     this.listaEmpresas('empresas')
+    if (this.item) {
+      this.id = this.item.id
+      this.nombre = this.item.nombre
+      this.email = this.item.email
+      this.edad = this.item.edad
+      this.empresa = this.item.id_empresa
+    }
   },
   data () {
     return {
+      id: null,
       nombre: '',
       email: '',
       edad: '',
@@ -63,18 +75,31 @@ export default {
   methods: {
     enviar () {
       if (this.$refs.form.validate()) {
-        console.log('enviar!')
         const datos = {
           nombre: this.nombre,
           email: this.email,
           edad: this.edad,
           id_empresa: this.empresa
         }
-        axios.post(`${url}usuarios`, datos)
-          .then(respuesta => {
-            console.log(respuesta.data)
-          })
+        if (this.id) {
+          // editar
+          this.$http.put(`usuarios/${this.id}`, datos)
+            .then(respuesta => {
+              console.log('update!', respuesta)
+              EventBus.$emit('listar', respuesta)
+            })
+        } else {
+          // Agregar
+          this.$http.post(`usuarios`, datos)
+            .then(respuesta => {
+              console.log(respuesta)
+              EventBus.$emit('listar', respuesta)
+            })
+        }
       }
+    },
+    cancelar () {
+      EventBus.$emit('cancelar')
     }
   }
 }
