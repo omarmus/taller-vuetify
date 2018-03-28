@@ -23,7 +23,7 @@
       </div>
     </v-content>
     <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+      <span>&copy; 2018</span>
     </v-footer>
   </v-app>
 </template>
@@ -39,12 +39,7 @@ export default {
     return {
       clipped: false,
       drawer: true,
-      fixed: true,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
-      title: 'Proyecto Vuetify'
+      fixed: true
     }
   },
   name: 'App'
