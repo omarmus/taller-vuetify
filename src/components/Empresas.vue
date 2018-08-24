@@ -21,7 +21,7 @@
       <div class="btn-container">
         <v-btn color="primary" @click="mostrarForm"><v-icon>add</v-icon> Agregar nuevo</v-btn>
       </div>
-      <table class="table elevation-1">
+      <table class="v-table elevation-1">
         <thead>
           <tr>
             <th class="column">Nombre</th>
